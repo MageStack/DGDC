@@ -4,7 +4,7 @@ Tags: social login, facebook, google, twitter, linkedin, register, login, social
 Donate link: https://www.facebook.com/nextendweb
 Requires at least: 4.5
 Tested up to: 5.0
-Stable tag: 3.0.17
+Stable tag: 3.0.18
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -119,6 +119,21 @@ Using the Pro Addon you can set where the login buttons should appear on the Reg
 2. Nextend Social Login and Register in the profile page for account linking
 
 == Changelog ==
+= 3.0.18 =
+* Fix:  _nsl is not defined error
+* Fix:  The shortcode of [Page for register flow](https://nextendweb.com/nextend-social-login-docs/global-settings/) will be rendered into the correct position.
+* Fix: Google - G+ logo is replaced with simple G logo.
+
+* PRO: Fix: [Target window](https://nextendweb.com/nextend-social-login-docs/global-settings/#pro-settings) will open the auth window of the provider in the selected way again.
+* PRO: Fix: Update notice when the Free and Pro Addon are not compatible.
+* PRO: Feature: Social buttons for BuddyPress - Login widget
+* PRO: Feature: Option to disable the WordPress Toolbar on the front-end for some roles.
+* PRO: New provider - [Yahoo](https://nextendweb.com/nextend-social-login-docs/provider-yahoo/)
+* PRO: Note: We had plans to implement the [Instagram](https://nextendweb.com/nextend-social-login-docs/provider-instagram/) provider. Unfortunately we need to change our mind, since the Instagram API will become deprecated soon!
+
+= 3.0.17 =
+* Fix: Activation fix on certain sub-domains.
+
 = 3.0.16 =
 * Fix: NSL Avatars used to override the specified BuddyPress avatars.
 * Fix: 500 error when the Extended Profiles setting is disabled in BuddyPress.

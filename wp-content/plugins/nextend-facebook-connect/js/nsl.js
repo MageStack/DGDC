@@ -169,7 +169,7 @@ function checkWebView() {
 }
 
 _nsl.push(function ($) {
-    var targetWindow = targetWindow || 'prefer-popup';
+    var targetWindow = _targetWindow || 'prefer-popup';
 
     $('a[data-plugin="nsl"][data-action="connect"],a[data-plugin="nsl"][data-action="link"]').on('click', function (e) {
         var $target = $(this),

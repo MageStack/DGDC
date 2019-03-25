@@ -16,9 +16,9 @@ require_once(NSL_PATH . '/compat.php');
 
 class NextendSocialLogin {
 
-    public static $version = '3.0.17';
+    public static $version = '3.0.18';
 
-    public static $nslPROMinVersion = '3.0.15';
+    public static $nslPROMinVersion = '3.0.18';
 
     public static $proxyPage = false;
 
@@ -156,6 +156,9 @@ class NextendSocialLogin {
             'buddypress_register_button'       => 'bp_before_account_details_fields',
             'buddypress_register_button_align' => 'left',
             'buddypress_register_button_style' => 'default',
+            'buddypress_login'                 => 'show',
+            'buddypress_login_form_layout'     => 'default',
+            'buddypress_login_button_style'    => 'default',
 
             'woocommerce_login'                => 'after',
             'woocommerce_login_form_layout'    => 'default',
@@ -197,6 +200,8 @@ class NextendSocialLogin {
             'ultimatemember_register_form_button_style' => 'default',
             'ultimatemember_register_form_layout'       => 'below-separator',
             'ultimatemember_account_details'            => 'after',
+
+            'admin_bar_roles' => array(),
         ));
 
         add_action('itsec_initialized', 'NextendSocialLogin::disable_better_wp_security_block_long_urls', -1);
@@ -277,6 +282,9 @@ class NextendSocialLogin {
 
         add_action('parse_request', 'NextendSocialLogin::editProfileRedirect');
 
+        //check if jQuery is loaded
+        add_action('wp_print_scripts', 'NextendSocialLogin::checkJqueryLoaded');
+
         if (count(self::$enabledProviders) > 0) {
 
             if (self::$settings->get('show_login_form') == 'hide') {
@@ -313,11 +321,8 @@ class NextendSocialLogin {
 
 
             add_action('wp_head', 'NextendSocialLogin::styles', 100);
-            add_action('wp_head', 'NextendSocialLogin::checkFrontendJquery');
-            add_action('login_head', 'NextendSocialLogin::checkFrontendJquery');
 
             add_action('admin_head', 'NextendSocialLogin::styles', 100);
-            add_action('admin_head', 'NextendSocialLogin::checkFrontendJquery');
             add_action('login_head', 'NextendSocialLogin::loginHead', 100);
 
             add_action('wp_print_footer_scripts', 'NextendSocialLogin::scripts', 100);
@@ -396,7 +401,7 @@ class NextendSocialLogin {
         }
     }
 
-    public static function checkFrontendJquery() {
+    public static function checkJqueryLoaded() {
         echo '<script type="text/javascript">var _nsl=[];(function(a,d){var c=function(){if(a.jQuery===d)setTimeout(c,33);else{for(var b=0;b<_nsl.length;b++)_nsl[b].call(a,a.jQuery);_nsl={push:function(b){b.call(a,a.jQuery)}}}};c()})(window);</script>';
     }
 
@@ -416,7 +421,7 @@ class NextendSocialLogin {
         if ($once === null) {
             $scripts = NSL_PATH . '/js/nsl.js';
             if (file_exists($scripts)) {
-                echo '<script type="text/javascript">(function (undefined) {var targetWindow =' . wp_json_encode(self::$settings->get('target')) . ";\n" . file_get_contents($scripts) . '})();</script>';
+                echo '<script type="text/javascript">(function (undefined) {var _targetWindow =' . wp_json_encode(self::$settings->get('target')) . ";\n" . file_get_contents($scripts) . '})();</script>';
             }
             $once = true;
         }
